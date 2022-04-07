@@ -1,0 +1,21 @@
+#notFound {
+    text-align: center;
+    color: rgb(87, 66, 66);
+
+    background-image: url('https://images.unsplash.com/photo-1598620617377-3bfb505b4384?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+    background-color: #cccccc;
+    height: 60vh;
+    background-position: 50% 70%;
+    background-repeat: no-repeat;
+    background-size: cover; 
+
+    height: 80vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#notFound > h2 {
+    font-size: 40px;
+}
