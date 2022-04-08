@@ -15,7 +15,7 @@ export class InterceptTokenService implements HttpInterceptor {
       // clone the request and use the "setHeaders" property to set an "Authorization" header, etc.
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.auth.getToken()}`
+          Authorization: `JWT ${this.auth.getToken()}`
         }
       });
     }
