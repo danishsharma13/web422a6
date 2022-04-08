@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'; 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { MusicDataService } from '../music-data.service';
 import { Observable, Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -25,11 +25,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
     return tempStr;
   }
 
-  addToFavourites(trackId : any): void {
+  addToFavourites(trackId : string): void {
     this.ms.addToFavourites(trackId).subscribe((data) => {
         this.msb.open("Adding to Favourites...", "Done", { duration: 1500 });
     },
-    (err) => {
+    (err) => { 
       this.msb.open('Unable to add song to Favourites...', 'Done', {
         duration: 2500,
       });
@@ -40,10 +40,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
   constructor(private msb: MatSnackBar, private ms : MusicDataService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.params['id'];
-    this.albumSub = this.ms.getAlbumById(id).subscribe(result => { 
-      this.album = result;
-    });
+    this.albumSub = this.route.params.subscribe(params => {
+      this.ms.getAlbumById(params['id']).subscribe(result => { 
+        this.album = result;
+      });
+    })
   }
 
   ngOnDestroy(): void {

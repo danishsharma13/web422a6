@@ -18,12 +18,12 @@ import { GuardAuthService } from './guard-auth.service';
 const routes: Routes = [
   { path: 'about', component: AboutComponent, canActivate: [GuardAuthService] },
   { path: 'album/:id', component: AlbumComponent, canActivate: [GuardAuthService] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent},
   { path: 'artist/:id', component: ArtistDiscographyComponent, canActivate: [GuardAuthService] },
   { path: 'newReleases', component: NewReleasesComponent, canActivate: [GuardAuthService]},
   { path: 'search', component: SearchResultsComponent, canActivate: [GuardAuthService] },
   { path: 'favourities', component: FavouritesComponent, canActivate: [GuardAuthService] },
-  { path: 'register', component: RegisterComponent},
-  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/newReleases', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];

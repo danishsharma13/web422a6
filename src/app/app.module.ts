@@ -67,7 +67,7 @@ import { LoginComponent } from './login/login.component';
     FlexLayoutModule,
     HttpClientModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
     {

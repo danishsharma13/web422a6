@@ -68,38 +68,41 @@ export class MusicDataService {
 
   addToFavourites(id: string): Observable<[String]> {
     // TODO: make a PUT request to environment.userAPIBase/favourites/:id to add id to favourites
-    return this.http.put<[String]>(`${environment.userAPIBase}/favourites/${id}`, null);
+    return this.http.put<[String]>(`${environment.userAPIBase}/favourites/${id}`, id);
   }
 
   removeFromFavourites(id: string): Observable<any> {
     return this.http.delete<[String]>(`${environment.userAPIBase}/favourites/${id}`)
       .pipe(mergeMap(favouritesArray => {
         if (favouritesArray.length > 0) {
-          return this.spotifyToken.getBearerToken().pipe(mergeMap((token) => {
-            return this.http.get<any>(`https://api.spotify.com/v1/tracks?ids=${favouritesArray.join()}`,
-              { headers: { Authorization: `Bearer ${token}` } });
-          }));
-        } else {
-          return new Observable((o) => {
-            o.next({ tracks: [] });
-          });
+          favouritesArray.splice(favouritesArray.indexOf(id), 1);
+
+          return this.getFavourites();
         }
-      })
-      );
+
+        return new Observable((o) => {
+          o.next([]);
+        });
+      }));
   }
 
-  getFavourites(): Observable<any> {
+  getFavourites(): Observable<any> { 
     return this.http.get<[String]>(`${environment.userAPIBase}/favourites/`).pipe(mergeMap((favouritesArray) => {
+      console.log(favouritesArray);
       if (favouritesArray.length > 0) {
+        console.log(favouritesArray);
         return this.spotifyToken.getBearerToken().pipe(
           mergeMap((token) => {
-            return this.http.get<any>(`https://api.spotify.com/v1/tracks?ids=${favouritesArray.join()}`,
-              { headers: { Authorization: `Bearer ${token}` } });
+            return this.http.get(`https://api.spotify.com/v1/tracks?ids=${favouritesArray.join()}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
           })
-        );
-      } else {
-        return new Observable((o) => { o.next({ tracks: [] }); });
-      }
+          );
+        }
+        
+          return new Observable((o) => {
+            o.next([]);
+          });
     }));
   }
 }

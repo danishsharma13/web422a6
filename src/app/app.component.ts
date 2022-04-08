@@ -1,11 +1,14 @@
 /*********************************************************************************
-* WEB422 – Assignment 05
+* WEB422 – Assignment 06
 * I declare that this assignment is my own work in accordance with Seneca Academic Policy. No part of this
 * assignment has been copied manually or electronically from any other source (including web sites) or
 * distributed to other students.
 *
-* Name: Danish Sharma Student ID: 148201205 Date: March 25, 2022
+* Name: Danish Sharma Student ID: 148201205 Date: April 8, 2022
 *
+* Netlify Url: https://stalwart-cactus-dbec6b.netlify.app/
+*
+* User API: https://sheltered-cliffs-63870.herokuapp.com/
 ********************************************************************************/
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -35,7 +38,7 @@ export class AppComponent implements OnInit {
     this.searchString = "";
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        this.token = this.auth.readToken();
+        this.token = this.auth.readToken(); 
       }
     });
   }
