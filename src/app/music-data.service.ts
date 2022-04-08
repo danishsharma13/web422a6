@@ -88,9 +88,7 @@ export class MusicDataService {
 
   getFavourites(): Observable<any> { 
     return this.http.get<[String]>(`${environment.userAPIBase}/favourites/`).pipe(mergeMap((favouritesArray) => {
-      console.log(favouritesArray);
       if (favouritesArray.length > 0) {
-        console.log(favouritesArray);
         return this.spotifyToken.getBearerToken().pipe(
           mergeMap((token) => {
             return this.http.get(`https://api.spotify.com/v1/tracks?ids=${favouritesArray.join()}`, {
